@@ -1,0 +1,331 @@
+ {
+        "id": 234,
+        "title": "(기본문법) 쉽게 배워보는 조동사",
+        "teacher_nickname": "수박하",
+        "profile_image_key": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg",
+        "messages": [
+            {
+                "message": "쌤",
+                "chat_type": 2,
+                "image_url": "https:\/\/s3.ap-northeast-2.amazonaws.com\/soolgitbucket01\/ETC\/image.jpg",
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "요새 '조동사' 배우나요?!",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "넴 ㅜㅜ 쌤 어법이 너무 어려워여ㅠ",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "제가 아직 초등학생이라ㅠ",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "저 다섯 문장 중에서 조동사가 뭔지 한 번 찾아볼래요?",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "움 can이랑 will이요?",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "네 잘 찾았어요!ㅎㅎㅎ",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "'조'동사는 동사를 도와주는, 보조해주는 동사예요",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "문제에 나온 can - (동사)를 할 수 있다,",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "will - (동사)를 할 것이다 처럼",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "동사가 가진 기본 뜻에 다양한\/특정한 의미를 더해줄 수 있는 게 조동사예요!",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "넹... ㅠ",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "그럼 조동사 다음에 동사가 더 나와야 문장 의미가 완성되겠죠?",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "그런데!",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "조동사 다음에 오는 동사는 '동사원형'만 올 수 있어요!",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "동사원형이요? 수업때 배우긴 했는데ㅠ",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "네ㅎㅎ 동사의 기본 형태? go, sing, dance 같이",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "아 보기에 워너원이 나와서ㅋㅋㅋㅋ워너원 노래중에 make me feel so high",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "여기에서 feel도 동사원형이에요.",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "앜ㅋㅋㅋㅋㅋㅋㅋ쌤ㅋㅋㅋ워너블이신가여",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "들켰당ㅎㅎㅎㅎㅎ 암튼 동사원형은 문법에서도 이곳저곳 많이 쓰이니 잘 알아두세여!ㅋㅋㅋ",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "보기 3번을 보면, BTS will dances with the music에서",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "will 다음에 dances가 왔는데, dances의 원형은 dance 죠!",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "그래서 정리하자면 답은 3번이구",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "3번이 잘못된 이유는 조동사(can, will) 다음에는 동사원형이 와야 하기 때문이에요 ㅎㅎ",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "앟ㅎㅎ 제가 뭔가 포인트를 잘 몰랐던 것 같네여ㅠ",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "아 근데 쌤 해석도 해주실 수 있나요ㅠ",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "음...잠시만 기다려주세여",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "초등학생이시라니까 자세히 써볼게여",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "여기",
+                "chat_type": 1,
+                "image_url": "http:\/\/qanda-storage.s3.amazonaws.com\/c3e895f0-01c8-43eb-93c5-0df20c3b4254.jpg",
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "완전 엄밀하게 쓴 건 아닌데 ㅎㅎㅎ 그래도 이해를 도울 수 있게 써봤어요",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "우왕 ㅠ.ㅠ 감사합니다 쌤 ㅠㅠ",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "워너블이시라니 막 정도 가고ㅠ.ㅠ 감사해욤",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ친구도워너블이에요?ㅋㅋㅋㅋㅋ",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "저는 아미ㅎㅎㅎㅎ 그래도 뭔가 쌤도 아이돌 팬이시라구 하니까 ㅎㅎㅎ",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "ㅋㅋㅋㅋㅋ워너원과 함께 고3을 보냈어요ㅠㅠㅠ...특히대휘ㅠㅠㅠㅠㅠ...",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "bts 무대영상 보면 부모님은 안좋아하고ㅠ 공부 안하는 줄 알고ㅠ",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "쌤도 워너블이라니까 위안이 되네요ㅠ.ㅠ^!",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "ㅋㅋㅋㅋ위로가 많이 되었쬬... 수능 끝나고 워너원 콘서트 갔을떄ㅠㅠㅠㅠㅠㅠㅠㅠㄹㅇ감동이말할수없었어요ㅠㅠㅠㅠ",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "친구도 최애 보면서 위안두 얻고 앞으로 힘든 공부도 힘내길 바래요ㅠㅜ",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "그리구 아직 초등학생이시니까!!! 문법 어려워도 차근차근 하면 될거에요",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "녜 열심히 해볼게요 감사합니닿ㅎ.ㅎ!",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            },
+            {
+                "message": "아미친구도 응원할게요ㅜㅠ!!!ㅠㅠ...",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ하성운이랑 지민도 절친이구(?)ㅋㅋㅋㅋㅋㅋ",
+                "chat_type": 1,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": "https://s3.ap-northeast-2.amazonaws.com/soolgitbucket01/ETC/profile.jpg"
+            },
+            {
+                "message": "넹ㅋㅋㅋㅋㅋ",
+                "chat_type": 2,
+                "image_url": null,
+                "user_nickname": "수박하",
+                "profile_image": null
+            }
+        ],
+        "created_at": "2019-04-17T08:31:12.605994Z",
+        "like_count": 106,
+        "comment_count": 20,
+        "is_liked": 0,
+        "thumbnail": "https:\/\/qanda-server-storage.s3.amazonaws.com\/uploads\/curation\/cotents\/english-2724442_1920_f13d48f6028d40f890e3f552da77c89d.jpg",
+        "tag": 1,
+        "view_count": 4362,
+        "is_bookmark": 0
+    }

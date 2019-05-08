@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.sampleproject.CollapsibleToolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintToolbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:minHeight="67dp"
+    app:layoutDescription="@xml/motionscene"
+    app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed">
+
+    <ImageView
+        android:id="@+id/curating_contents_detail_back"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="14.5dp"
+        android:src="@drawable/system_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/curating_contents_detail_title"
+        style="@style/TextTheme_Medium_19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="55dp"
+        android:lines="1"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/curating_contents_detail_back"
+        tools:text="Test Title" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/curating_contents_detail_author_profile_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/curating_contents_detail_title"
+        tools:src="#000000" />
+
+    <TextView
+        android:id="@+id/curating_contents_detail_author_nickname"
+        style="@style/TextTheme_Regular_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:lines="1"
+        android:maxLength="20"
+        app:layout_constraintBottom_toTopOf="@+id/curating_contents_detail_created_at"
+        app:layout_constraintStart_toEndOf="@+id/curating_contents_detail_author_profile_image"
+        app:layout_constraintTop_toTopOf="@+id/curating_contents_detail_author_profile_image"
+        tools:text="Joseph Franklin" />
+
+    <TextView
+        android:id="@+id/curating_contents_detail_created_at"
+        style="@style/TextTheme_Regular_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="9dp"
+        app:layout_constraintBottom_toBottomOf="@+id/curating_contents_detail_author_profile_image"
+        app:layout_constraintStart_toEndOf="@+id/curating_contents_detail_author_profile_image"
+        app:layout_constraintTop_toBottomOf="@+id/curating_contents_detail_author_nickname"
+        tools:text="08 Apr 2018" />
+
+    <View
+        android:id="@+id/divide_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@+id/curating_contents_detail_author_profile_image" />
+
+</com.example.sampleproject.CollapsibleToolbar>

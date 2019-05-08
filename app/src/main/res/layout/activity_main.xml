@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:background="#ffffff">
+
+        <include
+            android:id="@+id/coordinatorlayout_header"
+            layout="@layout/coordinatorlayout_header" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        android:id="@+id/coordinatorlayout_content"
+        layout="@layout/coordinatorlayout_content" />
+
+</android.support.design.widget.CoordinatorLayout>
