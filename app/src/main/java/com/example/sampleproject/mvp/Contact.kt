@@ -13,13 +13,17 @@ interface Contact {
         fun runLoadData(contents: CuratingContents)
         fun runAddUserMessage(message: PickChatMessage)
         fun runAddMiddleMessage(message: String)
+        fun runRelatedMessage(lists: ArrayList<CuratingContents>)
     }
 
     interface Presenter {
         fun initView(view: View)
+        fun endView()
         fun toggleLikeBtn()
-        fun recvTouched(e: MotionEvent): Boolean
-        fun loadData(json: String)
+        fun recvTouched(): Boolean
+        fun loadData()
+        fun loadRelatedContents()
     }
 
+    // 1.
 }

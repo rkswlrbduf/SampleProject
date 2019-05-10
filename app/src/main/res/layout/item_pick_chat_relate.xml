@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="35dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@id/txtv_header"/>
+
+    <TextView
+        style="@style/TextTheme_Medium_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtv_header"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="30dp"
+        android:text="다른 글 보기 "
+        android:layout_below="@id/divider"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/curating_contents_related_recv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_marginTop="3dp"
+        android:clipToPadding="false"
+        android:padding="5dp">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

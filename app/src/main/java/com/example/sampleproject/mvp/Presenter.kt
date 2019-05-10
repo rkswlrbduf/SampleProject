@@ -1,52 +1,73 @@
 package com.example.sampleproject.mvp
 
 import android.util.Log
-import android.view.GestureDetector
-import android.view.MotionEvent
-import com.example.sampleproject.PickRepositorylmpl
+import com.example.sampleproject.data.PickRepositorylmpl
 import com.example.sampleproject.data.CuratingContents
 import io.reactivex.disposables.Disposable
 
 class Presenter : Contact.Presenter {
 
-    private lateinit var view: Contact.View
+    private var view: Contact.View? = null
     private val pickRepository: PickRepositorylmpl = PickRepositorylmpl()
-    var disposable: Disposable? = null
+    var contentsDisposable: Disposable? = null
+    var RelatedDisposable: Disposable? = null
     private lateinit var contents: CuratingContents
+    private lateinit var relatedContents: ArrayList<CuratingContents>
     var loadFinished = false
+
 
     override fun initView(view: Contact.View) {
         this.view = view
         view.init()
     }
 
-    override fun toggleLikeBtn() {
-        view.runToggleLikeBtn()
+    override fun endView() {
+        this.view = null
+        contentsDisposable?.dispose()
+        RelatedDisposable?.dispose()
     }
 
-    override fun recvTouched(e: MotionEvent): Boolean {
-        if (e.action == MotionEvent.ACTION_UP && !loadFinished) {
+    override fun toggleLikeBtn() {
+        view?.runToggleLikeBtn()
+    }
+
+    override fun recvTouched(): Boolean {
+        if (!loadFinished) {
             if (contents.messages.isNotEmpty()) {
-                view.runAddUserMessage(contents.messages[0])
+                view?.runAddUserMessage(contents.messages[0])
                 contents.messages.removeAt(0)
+                view?.scrollToBottom()
             } else {
-                view.runAddMiddleMessage(message = "- 끝 -")
+                view?.runAddMiddleMessage(message = "- 끝 -")
+                view?.runRelatedMessage(relatedContents)
+                view?.scrollToBottom()
                 loadFinished = !loadFinished
             }
-            view.scrollToBottom()
             return true
         }
         return false
     }
 
-    override fun loadData(json: String) {
-        disposable = pickRepository.getContents(json).subscribe({ contents ->
+    override fun loadData() {
+        contentsDisposable = pickRepository.getContents().subscribe({ contents ->
             this.contents = contents
-            view.runLoadData(contents)
+            view?.runLoadData(contents)
             this.contents.messages.removeAt(0)
+
+            loadRelatedContents()
+
         }, { e ->
             Log.d("TAG", e.message)
         })
     }
+
+    override fun loadRelatedContents() {
+        RelatedDisposable = pickRepository.getRelatedContents().subscribe({ relatedContents ->
+            this.relatedContents = relatedContents
+        }, { e ->
+            Log.d("TAG", e.message)
+        })
+    }
+
 
 }

@@ -1,8 +1,12 @@
 package com.example.sampleproject
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.constraint.motion.MotionLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.bumptech.glide.Glide
@@ -15,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), Contact.View, GestureDetector.OnGestureListener {
 
@@ -23,19 +28,36 @@ class MainActivity : AppCompatActivity(), Contact.View, GestureDetector.OnGestur
     private val presenter: Presenter = Presenter()
     private val gestureDetector: GestureDetector by lazy { GestureDetector(this, this) }
 
+    companion object {
+
+        val REQUEST_CONTENTS_ID = "contents_id"
+
+        fun getStartIntent(context: Context, contentsId: Int): Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(REQUEST_CONTENTS_ID, contentsId)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            return intent
+        }
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         presenter.initView(this)
-        presenter.loadData(loadJSONFromAsset())
+        presenter.loadData()
 
     }
 
     override fun init() {
 
-        mAdapter = PickChatMessageAdapter(this, null).also {
+        mAdapter = PickChatMessageAdapter(this, null, object : PickChatMessageAdapter.PickChatCallback {
+            override fun onPickItemClicked(contentsId: Int) {
+                startActivity(MainActivity.getStartIntent(this@MainActivity, contentsId))
+            }
+        }).also {
             curating_content_recv.adapter = it
             curating_content_recv.layoutManager = LinearLayoutManager(this)
         }
@@ -82,27 +104,26 @@ class MainActivity : AppCompatActivity(), Contact.View, GestureDetector.OnGestur
         mAdapter.addMiddleMessage(message)
     }
 
+    override fun runRelatedMessage(lists: ArrayList<CuratingContents>) {
+        mAdapter.addRelateContentMessage(lists)
+    }
+
+    // 유틸 클래스는 어디에 있는게 제일좋을지?
     fun getStringYMD(date: Date?): String = SimpleDateFormat("dd MMM YYYY").format(date)
 
-    fun loadJSONFromAsset(): String {
-        try {
-            val inputStream = assets.open("sample_chat.json")
-            val size = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            inputStream.close()
-            return String(buffer)
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            return ""
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.endView()
     }
 
     override fun onShowPress(e: MotionEvent?) {
     }
 
     override fun onSingleTapUp(e: MotionEvent): Boolean {
-        presenter.recvTouched(e)
+        if(presenter.recvTouched()) {
+            curating_content_container.setTransitionDuration(1)
+            curating_content_container.transitionToState(R.id.motion_end)
+        }
         return true
     }
 

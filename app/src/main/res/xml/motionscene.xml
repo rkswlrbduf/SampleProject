@@ -9,6 +9,7 @@
         <OnSwipe
             app:dragDirection="dragUp"
             app:touchAnchorId="@+id/curating_content_recv"
+            app:moveWhenScrollAtTop="false"
             app:touchAnchorSide="top" />
     </Transition>
 
