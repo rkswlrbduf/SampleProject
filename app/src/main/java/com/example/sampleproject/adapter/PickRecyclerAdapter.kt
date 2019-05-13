@@ -9,11 +9,10 @@ import com.example.sampleproject.R
 import com.example.sampleproject.data.CuratingContents
 import kotlinx.android.synthetic.main.item_curating_contents.view.*
 
-class PickRecylcerAdapter(context: Context, data: ArrayList<CuratingContents>?, val listener:OnPickItemClickListener?) :
-    BaseRecyclerViewAdapter<CuratingContents, RecyclerView.ViewHolder>(context, data) {
+class PickRecylcerAdapter(context: Context, data: ArrayList<CuratingContents>?, val listener: OnPickItemClickListener?) : BaseRecyclerViewAdapter<CuratingContents, RecyclerView.ViewHolder>(context, data) {
 
-    interface OnPickItemClickListener{
-        fun onPickItemClicked(contentsId:Int)
+    interface OnPickItemClickListener {
+        fun onPickItemClicked(contentsId: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = PickViewHolder(parent)
@@ -27,9 +26,7 @@ class PickRecylcerAdapter(context: Context, data: ArrayList<CuratingContents>?, 
     }
 
 
-    inner class PickViewHolder(
-        parent: ViewGroup
-    ) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_curating_contents, parent, false)) {
+    inner class PickViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_curating_contents, parent, false)) {
 
         private var contentsId = itemView.curating_contents_id
         private var img = itemView.curating_contents_image

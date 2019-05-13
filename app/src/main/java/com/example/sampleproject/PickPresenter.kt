@@ -1,30 +1,30 @@
-package com.example.sampleproject.mvp
+package com.example.sampleproject
 
 import android.util.Log
-import com.example.sampleproject.data.PickRepositorylmpl
 import com.example.sampleproject.data.CuratingContents
+import com.example.sampleproject.data.source.PickRepository
 import io.reactivex.disposables.Disposable
 
-class Presenter : Contact.Presenter {
+class PickPresenter : PickContact.Presenter {
 
-    private var view: Contact.View? = null
-    private val pickRepository: PickRepositorylmpl = PickRepositorylmpl()
+    private var view: PickContact.View? = null
+    private val pickRepository: PickRepository = PickRepository()
     var contentsDisposable: Disposable? = null
-    var RelatedDisposable: Disposable? = null
+    var relatedDisposable: Disposable? = null
     private lateinit var contents: CuratingContents
     private lateinit var relatedContents: ArrayList<CuratingContents>
     var loadFinished = false
 
 
-    override fun initView(view: Contact.View) {
+    override fun attachView(view: PickContact.View) {
         this.view = view
         view.init()
     }
 
-    override fun endView() {
+    override fun detachView() {
         this.view = null
         contentsDisposable?.dispose()
-        RelatedDisposable?.dispose()
+        relatedDisposable?.dispose()
     }
 
     override fun toggleLikeBtn() {
@@ -36,13 +36,12 @@ class Presenter : Contact.Presenter {
             if (contents.messages.isNotEmpty()) {
                 view?.runAddUserMessage(contents.messages[0])
                 contents.messages.removeAt(0)
-                view?.scrollToBottom()
             } else {
                 view?.runAddMiddleMessage(message = "- 끝 -")
                 view?.runRelatedMessage(relatedContents)
-                view?.scrollToBottom()
                 loadFinished = !loadFinished
             }
+            view?.scrollToBottom()
             return true
         }
         return false
@@ -62,7 +61,7 @@ class Presenter : Contact.Presenter {
     }
 
     override fun loadRelatedContents() {
-        RelatedDisposable = pickRepository.getRelatedContents().subscribe({ relatedContents ->
+        relatedDisposable = pickRepository.getRelatedContents().subscribe({ relatedContents ->
             this.relatedContents = relatedContents
         }, { e ->
             Log.d("TAG", e.message)

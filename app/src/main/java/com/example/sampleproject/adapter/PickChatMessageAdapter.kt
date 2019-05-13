@@ -164,6 +164,7 @@ class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageW
 
     inner class PickChatMiddleViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_chat_header_pick, parent, false)) {
         private var txtvHeader: TextView = itemView.findViewById(R.id.txtv_header)
+
         fun bind(position: Int, chatMessage: String?) {
             if (!TextUtils.isEmpty(chatMessage)) {
                 txtvHeader.text = chatMessage

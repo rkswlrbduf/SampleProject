@@ -4,28 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.constraint.motion.MotionLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.bumptech.glide.Glide
 import com.example.sampleproject.adapter.PickChatMessageAdapter
 import com.example.sampleproject.data.CuratingContents
 import com.example.sampleproject.data.PickChatMessage
-import com.example.sampleproject.mvp.Contact
-import com.example.sampleproject.mvp.Presenter
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), Contact.View, GestureDetector.OnGestureListener {
+class PickActivity : AppCompatActivity(), PickContact.View, GestureDetector.OnGestureListener {
 
     private lateinit var mAdapter: PickChatMessageAdapter
     private var messages: ArrayList<PickChatMessage>? = null
-    private val presenter: Presenter = Presenter()
+    private val presenter: PickPresenter = PickPresenter()
     private val gestureDetector: GestureDetector by lazy { GestureDetector(this, this) }
 
     companion object {
@@ -33,7 +28,7 @@ class MainActivity : AppCompatActivity(), Contact.View, GestureDetector.OnGestur
         val REQUEST_CONTENTS_ID = "contents_id"
 
         fun getStartIntent(context: Context, contentsId: Int): Intent {
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, PickActivity::class.java)
             intent.putExtra(REQUEST_CONTENTS_ID, contentsId)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             return intent
@@ -46,7 +41,7 @@ class MainActivity : AppCompatActivity(), Contact.View, GestureDetector.OnGestur
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter.initView(this)
+        presenter.attachView(this)
         presenter.loadData()
 
     }
@@ -55,7 +50,7 @@ class MainActivity : AppCompatActivity(), Contact.View, GestureDetector.OnGestur
 
         mAdapter = PickChatMessageAdapter(this, null, object : PickChatMessageAdapter.PickChatCallback {
             override fun onPickItemClicked(contentsId: Int) {
-                startActivity(MainActivity.getStartIntent(this@MainActivity, contentsId))
+                startActivity(PickActivity.getStartIntent(this@PickActivity, contentsId))
             }
         }).also {
             curating_content_recv.adapter = it
@@ -64,7 +59,6 @@ class MainActivity : AppCompatActivity(), Contact.View, GestureDetector.OnGestur
 
         curating_content_recv.setOnTouchListener { _, event ->
             gestureDetector.onTouchEvent(event)
-            //presenter.recvTouched(event)
         }
 
         curating_contents_detail_like_count_image.setOnClickListener {
@@ -113,14 +107,14 @@ class MainActivity : AppCompatActivity(), Contact.View, GestureDetector.OnGestur
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.endView()
+        presenter.detachView()
     }
 
     override fun onShowPress(e: MotionEvent?) {
     }
 
     override fun onSingleTapUp(e: MotionEvent): Boolean {
-        if(presenter.recvTouched()) {
+        if (presenter.recvTouched()) {
             curating_content_container.setTransitionDuration(1)
             curating_content_container.transitionToState(R.id.motion_end)
         }

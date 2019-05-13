@@ -1,10 +1,9 @@
-package com.example.sampleproject.mvp
+package com.example.sampleproject
 
-import android.view.MotionEvent
 import com.example.sampleproject.data.CuratingContents
 import com.example.sampleproject.data.PickChatMessage
 
-interface Contact {
+interface PickContact {
 
     interface View {
         fun init()
@@ -17,8 +16,8 @@ interface Contact {
     }
 
     interface Presenter {
-        fun initView(view: View)
-        fun endView()
+        fun attachView(view: View)
+        fun detachView()
         fun toggleLikeBtn()
         fun recvTouched(): Boolean
         fun loadData()
