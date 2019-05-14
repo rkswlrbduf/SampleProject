@@ -1,12 +1,11 @@
-package com.example.sampleproject
+package com.example.sampleproject.pickdeatil
 
 import com.example.sampleproject.data.CuratingContents
 import com.example.sampleproject.data.PickChatMessage
 
-interface PickContact {
+interface PickDetailContact {
 
-    interface View {
-        fun init()
+    interface View: BaseView {
         fun scrollToBottom()
         fun runToggleLikeBtn()
         fun runLoadData(contents: CuratingContents)
@@ -15,14 +14,11 @@ interface PickContact {
         fun runRelatedMessage(lists: ArrayList<CuratingContents>)
     }
 
-    interface Presenter {
-        fun attachView(view: View)
-        fun detachView()
+    interface Presenter: BasePresenter<View> {
         fun toggleLikeBtn()
         fun recvTouched(): Boolean
         fun loadData()
         fun loadRelatedContents()
     }
 
-    // 1.
 }

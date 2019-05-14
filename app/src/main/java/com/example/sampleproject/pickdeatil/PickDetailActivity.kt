@@ -1,26 +1,32 @@
-package com.example.sampleproject
+package com.example.sampleproject.pickdeatil
 
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.bumptech.glide.Glide
+import com.example.sampleproject.R
 import com.example.sampleproject.adapter.PickChatMessageAdapter
+import com.example.sampleproject.component.DaggerPickComponent
 import com.example.sampleproject.data.CuratingContents
 import com.example.sampleproject.data.PickChatMessage
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_pick_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class PickActivity : AppCompatActivity(), PickContact.View, GestureDetector.OnGestureListener {
+class PickDetailActivity : AppCompatActivity(), PickDetailContact.View, GestureDetector.OnGestureListener {
 
     private lateinit var mAdapter: PickChatMessageAdapter
-    private var messages: ArrayList<PickChatMessage>? = null
-    private val presenter: PickPresenter = PickPresenter()
+
+    @Inject
+    lateinit var presenter: PickDetailPresenter
+
     private val gestureDetector: GestureDetector by lazy { GestureDetector(this, this) }
 
     companion object {
@@ -28,7 +34,7 @@ class PickActivity : AppCompatActivity(), PickContact.View, GestureDetector.OnGe
         val REQUEST_CONTENTS_ID = "contents_id"
 
         fun getStartIntent(context: Context, contentsId: Int): Intent {
-            val intent = Intent(context, PickActivity::class.java)
+            val intent = Intent(context, PickDetailActivity::class.java)
             intent.putExtra(REQUEST_CONTENTS_ID, contentsId)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             return intent
@@ -39,7 +45,9 @@ class PickActivity : AppCompatActivity(), PickContact.View, GestureDetector.OnGe
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_pick_detail)
+
+        DaggerPickComponent.builder().build().inject(this)
 
         presenter.attachView(this)
         presenter.loadData()
@@ -50,14 +58,20 @@ class PickActivity : AppCompatActivity(), PickContact.View, GestureDetector.OnGe
 
         mAdapter = PickChatMessageAdapter(this, null, object : PickChatMessageAdapter.PickChatCallback {
             override fun onPickItemClicked(contentsId: Int) {
-                startActivity(PickActivity.getStartIntent(this@PickActivity, contentsId))
+                startActivity(
+                    getStartIntent(
+                        this@PickDetailActivity,
+                        contentsId
+                    )
+                )
             }
         }).also {
             curating_content_recv.adapter = it
             curating_content_recv.layoutManager = LinearLayoutManager(this)
         }
 
-        curating_content_recv.setOnTouchListener { _, event ->
+        curating_content_recv.setOnTouchListener { v, event ->
+            Log.d("TAG", "TOUCH")
             gestureDetector.onTouchEvent(event)
         }
 
@@ -86,8 +100,7 @@ class PickActivity : AppCompatActivity(), PickContact.View, GestureDetector.OnGe
         Glide.with(this).load(contents.profileImageKey).into(curating_contents_detail_author_profile_image)
         curating_contents_detail_author_nickname.text = contents.teacherNickName
         curating_contents_detail_created_at.text = getStringYMD(contents.createdAt)
-        mAdapter.addUserMessage(contents.messages[0])
-        messages = contents.messages
+        mAdapter.addUserMessage(contents.messages[0]!!)
     }
 
     override fun runAddUserMessage(message: PickChatMessage) {
@@ -114,6 +127,7 @@ class PickActivity : AppCompatActivity(), PickContact.View, GestureDetector.OnGe
     }
 
     override fun onSingleTapUp(e: MotionEvent): Boolean {
+        Log.d("TAG", "CLK")
         if (presenter.recvTouched()) {
             curating_content_container.setTransitionDuration(1)
             curating_content_container.transitionToState(R.id.motion_end)

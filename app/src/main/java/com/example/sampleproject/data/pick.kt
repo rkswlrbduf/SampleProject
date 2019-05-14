@@ -1,29 +1,33 @@
 package com.example.sampleproject.data
 
 import com.google.gson.annotations.SerializedName
+import io.realm.RealmList
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 import java.util.*
 
-data class CuratingContents(
-    var id: Int,
-    var title: String,
-    @SerializedName("created_at") var createdAt: Date,
-    @SerializedName("like_count") var likeCount: Int,
-    @SerializedName("comment_count") var commentCount: Int,
+open class CuratingContents(
+    @PrimaryKey
+    var id: Int = 0,
+    var title: String = "",
+    @SerializedName("created_at") var createdAt: Date = Date(),
+    @SerializedName("like_count") var likeCount: Int = 0,
+    @SerializedName("comment_count") var commentCount: Int = 0,
     @SerializedName("view_count") var viewCount: Int? = null,
-    @SerializedName("is_liked") var isLiked: Int,
-    var thumbnail: String,
-    var tag: Int,
-    @SerializedName("teacher_nickname") var teacherNickName: String,
-    @SerializedName("profile_image_key") var profileImageKey: String?,
-    var messages: ArrayList<PickChatMessage>
-)
+    @SerializedName("is_liked") var isLiked: Int = 0,
+    var thumbnail: String = "",
+    var tag: Int = 0,
+    @SerializedName("teacher_nickname") var teacherNickName: String = "",
+    @SerializedName("profile_image_key") var profileImageKey: String? = null,
+    var messages: RealmList<PickChatMessage> = RealmList()
+): RealmObject()
 
 
-data class PickChatMessage(
+open class PickChatMessage(
     var message: String? = null,
     @SerializedName("user_nickname") var userNickname: String? = null,
     @SerializedName("profile_image") var profileImage: String? = null,
-    @SerializedName("chat_type") var chatType: Int,
+    @SerializedName("chat_type") var chatType: Int = 0,
     @SerializedName("image_url") var imageURL: String? = null
-)
+) : RealmObject()
 

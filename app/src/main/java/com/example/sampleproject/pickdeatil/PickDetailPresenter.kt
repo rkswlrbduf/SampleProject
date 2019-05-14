@@ -1,22 +1,23 @@
-package com.example.sampleproject
+package com.example.sampleproject.pickdeatil
 
 import android.util.Log
 import com.example.sampleproject.data.CuratingContents
 import com.example.sampleproject.data.source.PickRepository
 import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
-class PickPresenter : PickContact.Presenter {
+class PickDetailPresenter @Inject constructor(
+    var pickRepository: PickRepository
+) : PickDetailContact.Presenter {
 
-    private var view: PickContact.View? = null
-    private val pickRepository: PickRepository = PickRepository()
+    private var view: PickDetailContact.View? = null
     var contentsDisposable: Disposable? = null
     var relatedDisposable: Disposable? = null
     private lateinit var contents: CuratingContents
     private lateinit var relatedContents: ArrayList<CuratingContents>
     var loadFinished = false
 
-
-    override fun attachView(view: PickContact.View) {
+    override fun attachView(view: PickDetailContact.View) {
         this.view = view
         view.init()
     }
@@ -32,9 +33,10 @@ class PickPresenter : PickContact.Presenter {
     }
 
     override fun recvTouched(): Boolean {
+        Log.d("TAG", "CLICKEDDDD")
         if (!loadFinished) {
             if (contents.messages.isNotEmpty()) {
-                view?.runAddUserMessage(contents.messages[0])
+                view?.runAddUserMessage(contents.messages[0]!!)
                 contents.messages.removeAt(0)
             } else {
                 view?.runAddMiddleMessage(message = "- 끝 -")
@@ -48,7 +50,7 @@ class PickPresenter : PickContact.Presenter {
     }
 
     override fun loadData() {
-        contentsDisposable = pickRepository.getContents().subscribe({ contents ->
+        contentsDisposable = pickRepository.getDetailContents().subscribe({ contents ->
             this.contents = contents
             view?.runLoadData(contents)
             this.contents.messages.removeAt(0)

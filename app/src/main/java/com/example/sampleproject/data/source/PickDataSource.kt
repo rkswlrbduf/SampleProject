@@ -1,11 +1,14 @@
 package com.example.sampleproject.data.source
 
 import com.example.sampleproject.data.CuratingContents
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 interface PickDataSource {
 
-    fun getContents(): Single<CuratingContents>
+    fun getContents(): Single<ArrayList<CuratingContents>>
+    fun getDetailContents(): Single<CuratingContents>
     fun getRelatedContents(): Single<ArrayList<CuratingContents>>
 
 }
