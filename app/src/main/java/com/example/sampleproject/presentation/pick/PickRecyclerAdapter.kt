@@ -1,4 +1,4 @@
-package com.example.sampleproject.adapter
+package com.example.sampleproject.presentation.pick
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,7 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.sampleproject.R
-import com.example.sampleproject.data.CuratingContents
+import com.example.sampleproject.base.BaseRecyclerViewAdapter
+import com.example.sampleproject.domain.CuratingContents
 import kotlinx.android.synthetic.main.item_curating_contents.view.*
 
 class PickRecylcerAdapter(context: Context, data: ArrayList<CuratingContents>?, val listener: OnPickItemClickListener?) : BaseRecyclerViewAdapter<CuratingContents, RecyclerView.ViewHolder>(context, data) {
@@ -24,7 +25,6 @@ class PickRecylcerAdapter(context: Context, data: ArrayList<CuratingContents>?, 
             (holder as PickViewHolder).bindTo(it)
         }
     }
-
 
     inner class PickViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_curating_contents, parent, false)) {
 

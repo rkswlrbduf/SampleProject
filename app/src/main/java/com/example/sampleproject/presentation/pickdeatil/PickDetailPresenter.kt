@@ -1,13 +1,13 @@
-package com.example.sampleproject.pickdeatil
+package com.example.sampleproject.presentation.pickdeatil
 
 import android.util.Log
-import com.example.sampleproject.data.CuratingContents
-import com.example.sampleproject.data.source.PickRepository
+import com.example.sampleproject.domain.CuratingContents
+import com.example.sampleproject.data.repositoryImpl.PickRepositoryImpl
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class PickDetailPresenter @Inject constructor(
-    var pickRepository: PickRepository
+    var pickRepository: PickRepositoryImpl
 ) : PickDetailContact.Presenter {
 
     private var view: PickDetailContact.View? = null
@@ -33,7 +33,6 @@ class PickDetailPresenter @Inject constructor(
     }
 
     override fun recvTouched(): Boolean {
-        Log.d("TAG", "CLICKEDDDD")
         if (!loadFinished) {
             if (contents.messages.isNotEmpty()) {
                 view?.runAddUserMessage(contents.messages[0]!!)
@@ -54,9 +53,7 @@ class PickDetailPresenter @Inject constructor(
             this.contents = contents
             view?.runLoadData(contents)
             this.contents.messages.removeAt(0)
-
             loadRelatedContents()
-
         }, { e ->
             Log.d("TAG", e.message)
         })
@@ -70,5 +67,8 @@ class PickDetailPresenter @Inject constructor(
         })
     }
 
+    override fun updateLike(id: Int) {
+        pickRepository.updateLike(id)
+    }
 
 }

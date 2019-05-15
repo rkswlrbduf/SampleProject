@@ -1,13 +1,11 @@
-package com.example.sampleproject.adapter
+package com.example.sampleproject.presentation.pick
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.example.sampleproject.pick.PickLikeFragment
-import com.example.sampleproject.pick.PickListFragment
 
 
-class FragmentAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class PickFragmentAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
         when (position) {

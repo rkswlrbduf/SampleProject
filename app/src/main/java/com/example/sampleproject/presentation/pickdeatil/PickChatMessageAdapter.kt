@@ -1,4 +1,4 @@
-package com.example.sampleproject.adapter
+package com.example.sampleproject.presentation.pickdeatil
 
 import android.content.Context
 import android.support.v7.widget.GridLayoutManager
@@ -11,8 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.sampleproject.R
-import com.example.sampleproject.data.CuratingContents
-import com.example.sampleproject.data.PickChatMessage
+import com.example.sampleproject.base.BaseRecyclerViewAdapter
+import com.example.sampleproject.domain.CuratingContents
+import com.example.sampleproject.domain.PickChatMessage
+import com.example.sampleproject.presentation.pick.PickRecylcerAdapter
 import de.hdodenhof.circleimageview.CircleImageView
 
 class PickChatMessageWrapper {
@@ -72,10 +74,12 @@ class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageW
 
     fun addUserMessage(message: PickChatMessage) {
         var wrapper = PickChatMessageWrapper()
-        if (message.chatType == PickChatMessageAdapter.LEFT_VIEWTYPE) {
-            wrapper.viewType = PickChatMessageAdapter.LEFT_VIEWTYPE
+        if (message.chatType == LEFT_VIEWTYPE) {
+            wrapper.viewType =
+                LEFT_VIEWTYPE
         } else {
-            wrapper.viewType = PickChatMessageAdapter.RIGHT_VIEWTYPE
+            wrapper.viewType =
+                RIGHT_VIEWTYPE
         }
         wrapper.message = message
         super.add(wrapper)
@@ -83,14 +87,16 @@ class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageW
 
     fun addMiddleMessage(message: String) {
         var wrapper = PickChatMessageWrapper()
-        wrapper.viewType = PickChatMessageAdapter.MIDDLE_VIETYPE
+        wrapper.viewType =
+            MIDDLE_VIETYPE
         wrapper.middleMessage = message
         super.add(wrapper)
     }
 
     fun addRelateContentMessage(relateContents: ArrayList<CuratingContents>) {
         var wrapper = PickChatMessageWrapper()
-        wrapper.viewType = PickChatMessageAdapter.RELATE_LIST_VIEWTYPE
+        wrapper.viewType =
+            RELATE_LIST_VIEWTYPE
         wrapper.relateContents = relateContents
         super.add(wrapper)
     }
@@ -186,7 +192,11 @@ class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageW
             } else {
                 itemView.visibility = View.VISIBLE
                 if (adapter == null) {
-                    adapter = PickRecylcerAdapter(itemView.context, null, callback)
+                    adapter = PickRecylcerAdapter(
+                        itemView.context,
+                        null,
+                        callback
+                    )
                     recyclerView.adapter = adapter
                     recyclerView.layoutManager = GridLayoutManager(itemView.context, 2)
                 }

@@ -1,8 +1,6 @@
-package com.example.sampleproject.pickdeatil
+package com.example.sampleproject.presentation.pickdeatil
 
-import com.example.sampleproject.data.CuratingContents
-import com.example.sampleproject.data.PickChatMessage
-import io.realm.RealmResults
+import com.example.sampleproject.domain.CuratingContents
 
 interface PickListContract {
 

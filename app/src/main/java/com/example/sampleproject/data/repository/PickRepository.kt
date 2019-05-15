@@ -1,14 +1,15 @@
-package com.example.sampleproject.data.source
+package com.example.sampleproject.data.repository
 
-import com.example.sampleproject.data.CuratingContents
-import io.reactivex.Completable
+import com.example.sampleproject.domain.CuratingContents
 import io.reactivex.Observable
 import io.reactivex.Single
 
-interface PickDataSource {
+interface PickRepository {
 
+    fun getLikedContents(): Observable<CuratingContents>
     fun getContents(): Observable<CuratingContents>
     fun getDetailContents(): Single<CuratingContents>
     fun getRelatedContents(): Single<ArrayList<CuratingContents>>
+    fun updateLike(contentId: Int)
 
 }

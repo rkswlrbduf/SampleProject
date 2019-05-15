@@ -1,7 +1,4 @@
-package com.example.sampleproject.pickdeatil
-
-import com.example.sampleproject.data.CuratingContents
-import com.example.sampleproject.data.PickChatMessage
+package com.example.sampleproject.presentation.pickdeatil
 
 interface BaseView {
     fun init()

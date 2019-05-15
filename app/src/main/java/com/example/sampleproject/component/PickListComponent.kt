@@ -1,7 +1,6 @@
-package com.example.sampleproject.pick.list
+package com.example.sampleproject.component
 
-import com.example.sampleproject.pick.PickListFragment
-import com.example.sampleproject.pickdeatil.PickDetailActivity
+import com.example.sampleproject.presentation.pick.PickListFragment
 import dagger.Component
 
 @Component(modules = [PickListModule::class])

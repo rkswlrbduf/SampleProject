@@ -1,4 +1,4 @@
-package com.example.sampleproject.pickdeatil
+package com.example.sampleproject.presentation.pickdeatil
 
 import android.content.Context
 import android.content.Intent
@@ -10,23 +10,24 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import com.bumptech.glide.Glide
 import com.example.sampleproject.R
-import com.example.sampleproject.adapter.PickChatMessageAdapter
 import com.example.sampleproject.component.DaggerPickComponent
-import com.example.sampleproject.data.CuratingContents
-import com.example.sampleproject.data.PickChatMessage
+import com.example.sampleproject.domain.CuratingContents
+import com.example.sampleproject.domain.PickChatMessage
 import kotlinx.android.synthetic.main.activity_pick_detail.*
+import kotlinx.android.synthetic.main.item_curating_contents.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class PickDetailActivity : AppCompatActivity(), PickDetailContact.View, GestureDetector.OnGestureListener {
+class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
+                           GestureDetector.OnGestureListener {
 
     private lateinit var mAdapter: PickChatMessageAdapter
 
     @Inject
     lateinit var presenter: PickDetailPresenter
-
+    var contents_id = -1
     private val gestureDetector: GestureDetector by lazy { GestureDetector(this, this) }
 
     companion object {
@@ -49,6 +50,8 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View, GestureD
 
         DaggerPickComponent.builder().build().inject(this)
 
+        contents_id = intent.getIntExtra("contents_id", -1)
+
         presenter.attachView(this)
         presenter.loadData()
 
@@ -56,21 +59,21 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View, GestureD
 
     override fun init() {
 
-        mAdapter = PickChatMessageAdapter(this, null, object : PickChatMessageAdapter.PickChatCallback {
-            override fun onPickItemClicked(contentsId: Int) {
-                startActivity(
-                    getStartIntent(
-                        this@PickDetailActivity,
-                        contentsId
+        mAdapter =
+            PickChatMessageAdapter(this, null, object : PickChatMessageAdapter.PickChatCallback {
+                override fun onPickItemClicked(contentsId: Int) {
+                    startActivity(
+                        getStartIntent(
+                            this@PickDetailActivity, contentsId
+                        )
                     )
-                )
+                }
+            }).also {
+                curating_content_recv.adapter = it
+                curating_content_recv.layoutManager = LinearLayoutManager(this)
             }
-        }).also {
-            curating_content_recv.adapter = it
-            curating_content_recv.layoutManager = LinearLayoutManager(this)
-        }
 
-        curating_content_recv.setOnTouchListener { v, event ->
+        curating_content_recv.setOnTouchListener { _, event ->
             Log.d("TAG", "TOUCH")
             gestureDetector.onTouchEvent(event)
         }
@@ -86,18 +89,22 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View, GestureD
     }
 
     override fun runToggleLikeBtn() {
+        presenter.updateLike(contents_id)
         if (curating_contents_detail_like_count_image.isSelected) {
             curating_contents_detail_like_count_image.isSelected = false
-            curating_contents_detail_like_count.text = ((curating_contents_detail_like_count.text.toString().toInt()) - 1).toString()
+            curating_contents_detail_like_count.text =
+                ((curating_contents_detail_like_count.text.toString().toInt()) - 1).toString()
         } else {
             curating_contents_detail_like_count_image.isSelected = true
-            curating_contents_detail_like_count.text = ((curating_contents_detail_like_count.text.toString().toInt()) + 1).toString()
+            curating_contents_detail_like_count.text =
+                ((curating_contents_detail_like_count.text.toString().toInt()) + 1).toString()
         }
     }
 
     override fun runLoadData(contents: CuratingContents) {
         curating_contents_detail_title.text = contents.title
-        Glide.with(this).load(contents.profileImageKey).into(curating_contents_detail_author_profile_image)
+        Glide.with(this).load(contents.profileImageKey)
+            .into(curating_contents_detail_author_profile_image)
         curating_contents_detail_author_nickname.text = contents.teacherNickName
         curating_contents_detail_created_at.text = getStringYMD(contents.createdAt)
         mAdapter.addUserMessage(contents.messages[0]!!)
@@ -139,11 +146,21 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View, GestureD
         return false
     }
 
-    override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+    override fun onFling(
+        e1: MotionEvent?,
+        e2: MotionEvent?,
+        velocityX: Float,
+        velocityY: Float
+    ): Boolean {
         return false
     }
 
-    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+    override fun onScroll(
+        e1: MotionEvent?,
+        e2: MotionEvent?,
+        distanceX: Float,
+        distanceY: Float
+    ): Boolean {
         return false
     }
 

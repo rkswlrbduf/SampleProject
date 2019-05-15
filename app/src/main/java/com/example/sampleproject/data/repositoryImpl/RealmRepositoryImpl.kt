@@ -1,27 +1,16 @@
-package com.example.sampleproject.data.source
+package com.example.sampleproject.data.repositoryImpl
 
-import android.util.Log
-import com.example.sampleproject.data.CuratingContents
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import dagger.Module
-import dagger.Provides
-import io.reactivex.Completable
+import com.example.sampleproject.domain.CuratingContents
+import com.example.sampleproject.data.repository.RealmRepository
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.toObservable
 import io.reactivex.schedulers.Schedulers
-import io.realm.RealmList
 import javax.inject.Inject
-import android.R.attr.resource
-import android.arch.lifecycle.LiveData
 import io.realm.Realm
-import io.realm.Realm.setDefaultConfiguration
-import io.realm.RealmConfiguration
-import io.realm.RealmResults
 
-class RealmRepository @Inject constructor(var realm: Realm) : RealmDataSource {
+class RealmRepositoryImpl @Inject constructor(var realm: Realm) :
+    RealmRepository {
 
     override fun isEmptyLocalDB(): Boolean {
         return realm.where(CuratingContents::class.java).findAll().isEmpty()

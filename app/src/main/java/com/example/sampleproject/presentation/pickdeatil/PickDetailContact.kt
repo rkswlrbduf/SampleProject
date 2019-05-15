@@ -1,11 +1,11 @@
-package com.example.sampleproject.pickdeatil
+package com.example.sampleproject.presentation.pickdeatil
 
-import com.example.sampleproject.data.CuratingContents
-import com.example.sampleproject.data.PickChatMessage
+import com.example.sampleproject.domain.CuratingContents
+import com.example.sampleproject.domain.PickChatMessage
 
 interface PickDetailContact {
 
-    interface View: BaseView {
+    interface View : BaseView {
         fun scrollToBottom()
         fun runToggleLikeBtn()
         fun runLoadData(contents: CuratingContents)
@@ -14,7 +14,8 @@ interface PickDetailContact {
         fun runRelatedMessage(lists: ArrayList<CuratingContents>)
     }
 
-    interface Presenter: BasePresenter<View> {
+    interface Presenter : BasePresenter<View> {
+        fun updateLike(id: Int)
         fun toggleLikeBtn()
         fun recvTouched(): Boolean
         fun loadData()

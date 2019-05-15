@@ -1,4 +1,4 @@
-package com.example.sampleproject.data
+package com.example.sampleproject.domain
 
 import com.google.gson.annotations.SerializedName
 import io.realm.RealmList

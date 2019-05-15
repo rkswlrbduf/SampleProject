@@ -1,4 +1,4 @@
-package com.example.sampleproject.pick
+package com.example.sampleproject.presentation.pick
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,14 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.sampleproject.R
-import com.example.sampleproject.adapter.PickRecylcerAdapter
-import com.example.sampleproject.data.CuratingContents
-import com.example.sampleproject.pick.list.DaggerPickListComponent
-import com.example.sampleproject.pickdeatil.PickDetailActivity
-import com.example.sampleproject.pickdeatil.PickListContract
-import com.example.sampleproject.pickdeatil.PickListPresenter
-import io.realm.Realm
-import io.realm.RealmResults
+import com.example.sampleproject.component.DaggerPickListComponent
+import com.example.sampleproject.domain.CuratingContents
+import com.example.sampleproject.presentation.pickdeatil.PickDetailActivity
+import com.example.sampleproject.presentation.pickdeatil.PickListContract
+import com.example.sampleproject.presentation.pickdeatil.PickListPresenter
 import kotlinx.android.synthetic.main.fragment_list.*
 import javax.inject.Inject
 
@@ -47,12 +44,11 @@ class PickListFragment : Fragment(), PickListContract.View {
             recv.layoutManager = GridLayoutManager(activity, 2)
             recv.adapter = it
         }
-
     }
 
     override fun loadData(contents: CuratingContents) {
         mAdapter.add(contents)
-        Log.d("TAG", "ADDED")
+        Log.d("TAG", "${contents.isLiked}, ${System.currentTimeMillis()}")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,4 +65,5 @@ class PickListFragment : Fragment(), PickListContract.View {
         super.onDestroyView()
         presenter.detachView()
     }
+
 }

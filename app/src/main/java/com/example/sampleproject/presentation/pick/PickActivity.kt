@@ -1,17 +1,13 @@
-package com.example.sampleproject.pick
+package com.example.sampleproject.presentation.pick
 
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.sampleproject.R
-import com.example.sampleproject.adapter.FragmentAdapter
-import com.example.sampleproject.component.DaggerPickComponent
-import com.example.sampleproject.pickdeatil.PickLikePresenter
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_pick.*
-import javax.inject.Inject
 
 class PickActivity : AppCompatActivity() {
 
@@ -37,7 +33,7 @@ class PickActivity : AppCompatActivity() {
         var realmConfiguration = RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build()
         Realm.setDefaultConfiguration(realmConfiguration)
 
-        view_pager.adapter = FragmentAdapter(supportFragmentManager)
+        view_pager.adapter = PickFragmentAdapter(supportFragmentManager)
         nav_view.setOnNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.menu_list -> {
