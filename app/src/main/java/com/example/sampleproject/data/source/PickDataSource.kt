@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 interface PickDataSource {
 
-    fun getContents(): Single<ArrayList<CuratingContents>>
+    fun getContents(): Observable<CuratingContents>
     fun getDetailContents(): Single<CuratingContents>
     fun getRelatedContents(): Single<ArrayList<CuratingContents>>
 

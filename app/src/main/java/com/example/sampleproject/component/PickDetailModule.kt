@@ -11,8 +11,8 @@ import io.realm.RealmConfiguration
 class PickDetailModule {
 
     @Provides
-    fun provideRepo(realm: Realm): PickRepository {
-        return PickRepository(realm)
+    fun provideRepo(): PickRepository {
+        return PickRepository()
     }
 
     @Provides

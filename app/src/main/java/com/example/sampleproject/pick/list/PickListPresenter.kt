@@ -2,11 +2,15 @@ package com.example.sampleproject.pickdeatil
 
 import android.util.Log
 import com.example.sampleproject.data.source.PickRepository
+import com.example.sampleproject.data.source.RealmRepository
+import io.reactivex.Single
 import io.reactivex.disposables.Disposable
+import io.realm.Realm
 import javax.inject.Inject
 
-class PickListPresenter @Inject constructor(var pickRepository: PickRepository) :
-    PickListContract.Presenter {
+class PickListPresenter @Inject constructor(
+    var pickRepository: PickRepository
+) : PickListContract.Presenter {
 
     private var view: PickListContract.View? = null
     var listDisposable: Disposable? = null
@@ -22,10 +26,12 @@ class PickListPresenter @Inject constructor(var pickRepository: PickRepository) 
     }
 
     override fun getData() {
-        listDisposable = pickRepository.getContents().subscribe({ contents ->
-            view?.loadData(contents)
-        }, { e ->
-            Log.d("TAG", e.message)
+        listDisposable = pickRepository.getContents().subscribe ({
+            var realm = Realm.getDefaultInstance()
+            realm.refresh()
+            view?.loadData(it)
+        }, {
+            Log.e("TAG", it.localizedMessage)
         })
     }
 

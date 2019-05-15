@@ -3,6 +3,7 @@ package com.example.sampleproject.pick
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.example.sampleproject.pickdeatil.PickDetailActivity
 import com.example.sampleproject.pickdeatil.PickListContract
 import com.example.sampleproject.pickdeatil.PickListPresenter
 import io.realm.Realm
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_list.*
 import javax.inject.Inject
 
@@ -48,8 +50,9 @@ class PickListFragment : Fragment(), PickListContract.View {
 
     }
 
-    override fun loadData(contents: ArrayList<CuratingContents>) {
+    override fun loadData(contents: CuratingContents) {
         mAdapter.add(contents)
+        Log.d("TAG", "ADDED")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
