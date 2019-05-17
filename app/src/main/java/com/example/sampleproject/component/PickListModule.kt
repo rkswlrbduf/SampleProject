@@ -11,21 +11,6 @@ import io.realm.Realm
 class PickListModule {
 
     @Provides
-    fun provideGson(): Gson {
-        return Gson()
-    }
-
-    @Provides
-    fun provideRealm(): Realm {
-        return Realm.getDefaultInstance()
-    }
-
-    @Provides
-    fun provideRepo(realm: Realm, gson: Gson): PickRepositoryImpl {
-        return PickRepositoryImpl(realm, gson)
-    }
-
-    @Provides
     fun providePresenter(pickRepository: PickRepositoryImpl): PickListPresenter {
         return PickListPresenter(pickRepository)
     }

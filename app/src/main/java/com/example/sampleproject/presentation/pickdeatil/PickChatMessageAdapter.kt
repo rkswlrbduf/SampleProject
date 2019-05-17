@@ -194,13 +194,12 @@ class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageW
                 if (adapter == null) {
                     adapter = PickRecylcerAdapter(
                         itemView.context,
-                        null,
                         callback
                     )
                     recyclerView.adapter = adapter
                     recyclerView.layoutManager = GridLayoutManager(itemView.context, 2)
                 }
-                adapter?.update(relateContents)
+//                adapter?.update(relateContents)
             }
 
         }

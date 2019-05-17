@@ -24,9 +24,9 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
                            GestureDetector.OnGestureListener {
 
     private lateinit var mAdapter: PickChatMessageAdapter
-
     @Inject
     lateinit var presenter: PickDetailPresenter
+
     var contents_id = -1
     private val gestureDetector: GestureDetector by lazy { GestureDetector(this, this) }
 
@@ -74,7 +74,6 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
             }
 
         curating_content_recv.setOnTouchListener { _, event ->
-            Log.d("TAG", "TOUCH")
             gestureDetector.onTouchEvent(event)
         }
 
@@ -134,7 +133,6 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
     }
 
     override fun onSingleTapUp(e: MotionEvent): Boolean {
-        Log.d("TAG", "CLK")
         if (presenter.recvTouched()) {
             curating_content_container.setTransitionDuration(1)
             curating_content_container.transitionToState(R.id.motion_end)
@@ -147,19 +145,13 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
     }
 
     override fun onFling(
-        e1: MotionEvent?,
-        e2: MotionEvent?,
-        velocityX: Float,
-        velocityY: Float
+        e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float
     ): Boolean {
         return false
     }
 
     override fun onScroll(
-        e1: MotionEvent?,
-        e2: MotionEvent?,
-        distanceX: Float,
-        distanceY: Float
+        e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float
     ): Boolean {
         return false
     }

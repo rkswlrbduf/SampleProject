@@ -1,5 +1,6 @@
 package com.example.sampleproject.data.repositoryImpl
 
+import android.arch.lifecycle.LiveData
 import android.util.Log
 import com.example.sampleproject.domain.CuratingContents
 import com.example.sampleproject.data.repository.PickRepository
@@ -11,6 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import io.reactivex.*
 import io.realm.Realm
+import io.realm.RealmResults
 
 class PickRepositoryImpl @Inject constructor(var realm: Realm, var gson: Gson) : PickRepository {
 
@@ -26,17 +28,13 @@ class PickRepositoryImpl @Inject constructor(var realm: Realm, var gson: Gson) :
             realm.commitTransaction()
         }
         return list.toObservable().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).doOnComplete { realm.close() }
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getLikedContents(): Observable<CuratingContents> {
-        var list = realm.copyFromRealm(
-            realm.where(CuratingContents::class.java).equalTo(
-                "isLiked", 1.toInt()
-            ).findAll()
-        )
-        return list.toObservable().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).doOnComplete { realm.close() }
+    override fun getLikedContents(): RealmResults<CuratingContents> {
+        return realm.where(CuratingContents::class.java).equalTo(
+            "isLiked", 1.toInt()
+        ).findAll()
     }
 
     override fun getDetailContents(): Single<CuratingContents> {
@@ -58,10 +56,10 @@ class PickRepositoryImpl @Inject constructor(var realm: Realm, var gson: Gson) :
     }
 
     override fun updateLike(contentId: Int) {
-        realm.beginTransaction()
-        var list = realm.where(CuratingContents::class.java).equalTo("id", contentId).findFirst()
-        if (list?.isLiked == 1) list?.isLiked = 0 else list?.isLiked = 1
-        realm.commitTransaction()
+        realm.executeTransaction {
+            var list = realm.where(CuratingContents::class.java).equalTo("id", contentId).findFirst()
+            if (list?.isLiked == 1) list?.isLiked = 0 else list?.isLiked = 1
+        }
     }
 
 }

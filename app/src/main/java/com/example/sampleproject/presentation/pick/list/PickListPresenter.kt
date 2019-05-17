@@ -5,9 +5,7 @@ import com.example.sampleproject.data.repositoryImpl.PickRepositoryImpl
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class PickListPresenter @Inject constructor(
-    var pickRepository: PickRepositoryImpl
-) : PickListContract.Presenter {
+class PickListPresenter @Inject constructor(var pickRepository: PickRepositoryImpl) : PickListContract.Presenter {
 
     private var view: PickListContract.View? = null
     var listDisposable: Disposable? = null
@@ -23,7 +21,7 @@ class PickListPresenter @Inject constructor(
     }
 
     override fun getData() {
-        listDisposable = pickRepository.getContents().subscribe ({
+        listDisposable = pickRepository.getContents().subscribe({
             view?.loadData(it)
         }, {
             Log.e("TAG", it.localizedMessage)

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.sampleproject.R
-import com.example.sampleproject.component.DaggerPickListComponent
+import com.example.sampleproject.component.DaggerPickComponent
 import com.example.sampleproject.domain.CuratingContents
 import com.example.sampleproject.presentation.pickdeatil.PickDetailActivity
 import com.example.sampleproject.presentation.pickdeatil.PickListContract
@@ -21,7 +21,7 @@ class PickListFragment : Fragment(), PickListContract.View {
     @Inject
     lateinit var presenter: PickListPresenter
     private lateinit var mAdapter: PickRecylcerAdapter
-    private var contents: ArrayList<CuratingContents>? = null
+    private var contents: ArrayList<CuratingContents> = ArrayList()
 
     companion object {
         fun newInstance(): PickListFragment = PickListFragment()
@@ -33,7 +33,6 @@ class PickListFragment : Fragment(), PickListContract.View {
 
     override fun init() {
         mAdapter = PickRecylcerAdapter(activity as PickActivity,
-            contents,
             object : PickRecylcerAdapter.OnPickItemClickListener {
                 override fun onPickItemClicked(contentsId: Int) {
                     startActivity(
@@ -47,14 +46,13 @@ class PickListFragment : Fragment(), PickListContract.View {
     }
 
     override fun loadData(contents: CuratingContents) {
-        mAdapter.add(contents)
-        Log.d("TAG", "${contents.isLiked}, ${System.currentTimeMillis()}")
+        mAdapter.addMoreData(contents)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        DaggerPickListComponent.builder().build().inject(this)
+        DaggerPickComponent.builder().build().inject(this)
 
         presenter.attachView(this)
         presenter.getData()

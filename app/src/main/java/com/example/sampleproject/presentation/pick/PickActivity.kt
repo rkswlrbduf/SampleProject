@@ -4,12 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.sampleproject.R
+import com.example.sampleproject.component.DaggerPickComponent
+import com.example.sampleproject.domain.CuratingContents
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_pick.*
+import javax.inject.Inject
 
 class PickActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var realm: Realm
 
     companion object {
 
@@ -30,8 +37,8 @@ class PickActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pick)
 
         Realm.init(this)
-        var realmConfiguration = RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build()
-        Realm.setDefaultConfiguration(realmConfiguration)
+
+        DaggerPickComponent.builder().build().inject(this)
 
         view_pager.adapter = PickFragmentAdapter(supportFragmentManager)
         nav_view.setOnNavigationItemSelectedListener {
@@ -46,6 +53,18 @@ class PickActivity : AppCompatActivity() {
             false
         }
 
+        realm.where(CuratingContents::class.java).equalTo(
+            "isLiked", 1.toInt()
+        ).findAll().addChangeListener { t ->
+            Log.d("TAG", "TAFWDWADWDAWDWADWDWD")
+        }
+
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        realm.removeAllChangeListeners()
+        realm.close()
+
+    }
 }
