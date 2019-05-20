@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.sampleproject.R
+import com.example.sampleproject.base.BaseApp
+import com.example.sampleproject.component.AppComponent
+import com.example.sampleproject.component.AppModule
 import com.example.sampleproject.component.DaggerPickComponent
 import com.example.sampleproject.domain.CuratingContents
 import io.realm.Realm
@@ -38,7 +41,7 @@ class PickActivity : AppCompatActivity() {
 
         Realm.init(this)
 
-        DaggerPickComponent.builder().build().inject(this)
+        DaggerPickComponent.builder().appComponent(BaseApp.component).build().inject(this)
 
         view_pager.adapter = PickFragmentAdapter(supportFragmentManager)
         nav_view.setOnNavigationItemSelectedListener {

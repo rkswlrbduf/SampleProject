@@ -11,8 +11,8 @@ import io.realm.rx.CollectionChange
 
 interface PickRepository {
 
-    fun getLikedContents(): LiveData<PagedList<CuratingContents>>
-    fun getContents(): LiveData<PagedList<CuratingContents>>
+    fun getLikedContents(): RealmResults<CuratingContents>
+    fun getContents(): RealmResults<CuratingContents>
     fun getDetailContents(): Single<CuratingContents>
     fun getRelatedContents(): Single<ArrayList<CuratingContents>>
     fun updateLike(contentId: Int)

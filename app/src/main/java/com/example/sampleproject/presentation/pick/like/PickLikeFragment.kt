@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.sampleproject.R
+import com.example.sampleproject.base.BaseApp
 import com.example.sampleproject.component.DaggerPickComponent
 import com.example.sampleproject.databinding.FragmentLikeBinding
 import com.example.sampleproject.presentation.pick.like.PickLikeViewModel
@@ -48,12 +49,12 @@ class PickLikeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        DaggerPickComponent.builder().build().inject(this)
+        DaggerPickComponent.builder().appComponent(BaseApp.component).build().inject(this)
         model = ViewModelProviders.of(this, factory).get(PickLikeViewModel::class.java)
         initUI()
-        model.likeLiveData.observeForever(Observer {
+        model.likeLiveData.observe(this, Observer{
             mAdapter.submitList(it)
-            Log.d("TAG", "likeLiveData: ${it?.size}")
+            mAdapter.notifyDataSetChanged()
         })
     }
 }

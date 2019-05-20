@@ -6,11 +6,13 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.sampleproject.R
+import com.example.sampleproject.base.BaseApp
 import com.example.sampleproject.component.DaggerPickComponent
 import com.example.sampleproject.databinding.FragmentListBinding
 import com.example.sampleproject.presentation.pick.list.PickListViewModel
@@ -48,13 +50,16 @@ class PickListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        DaggerPickComponent.builder().build().inject(this)
+        DaggerPickComponent.builder().appComponent(BaseApp.component).build().inject(this)
         model = ViewModelProviders.of(this, factory).get(PickListViewModel::class.java)
         initUI()
-        model.listLiveData.observeForever(Observer {
+        model.listLiveData.observe(this , Observer {
+
             mAdapter.submitList(it)
-            Log.d("TAG", "listLiveData: ${mAdapter.currentList?.size} ${mAdapter.itemCount}")
+            mAdapter.notifyDataSetChanged()
+            Log.d("listLiveData", "${it?.size.toString()} ${mAdapter.itemCount}")
         })
+
     }
 
 }

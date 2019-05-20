@@ -3,6 +3,7 @@ package com.example.sampleproject.presentation.pick
 import android.arch.paging.PagedListAdapter
 import android.content.Context
 import android.support.v4.view.AsyncLayoutInflater
+import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -11,15 +12,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.sampleproject.R
 import com.example.sampleproject.domain.CuratingContents
 import kotlinx.android.synthetic.main.item_curating_contents.view.*
 import java.util.*
 
-class PickRecylcerAdapter(var context: Context, val listener: OnPickItemClickListener?) : PagedListAdapter<CuratingContents, PickRecylcerAdapter.PickViewHolder>(MyDiffCallback()) {
+class PickRecylcerAdapter(var context: Context, val listener: OnPickItemClickListener?) :
+    ListAdapter<CuratingContents, PickRecylcerAdapter.PickViewHolder>(MyDiffCallback()) {
 
     companion object {
-        const val NUM_CACHED_VIEWS = 2
+        const val NUM_CACHED_VIEWS = 10
     }
 
     private val asyncLayoutInflater = AsyncLayoutInflater(context)
@@ -42,7 +45,10 @@ class PickRecylcerAdapter(var context: Context, val listener: OnPickItemClickLis
             LayoutInflater.from(context).inflate(R.layout.item_curating_contents, parent, false)
         } else {
             cachedViews.pop().also {
-                it.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                it.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
             }
         }
         return PickViewHolder(view)
@@ -67,7 +73,9 @@ class PickRecylcerAdapter(var context: Context, val listener: OnPickItemClickLis
             title.text = contents.title
             nickname.text = contents.teacherNickName
             like.text = contents.likeCount.toString()
-            Glide.with(itemView).load(contents.thumbnail).thumbnail(0.1f).into(img)
+            Glide.with(itemView).load(contents.thumbnail).diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .thumbnail(0.1f).into(img)
 //            Glide.with(itemView).load(contents.profileImageKey).thumbnail(0.1f).into(author)
             viewCount.text = contents.viewCount.toString()
 
@@ -78,9 +86,11 @@ class PickRecylcerAdapter(var context: Context, val listener: OnPickItemClickLis
     }
 
     class MyDiffCallback : DiffUtil.ItemCallback<CuratingContents>() {
-        override fun areItemsTheSame(firstItem: CuratingContents, secondItem: CuratingContents) = firstItem.id == secondItem.id
+        override fun areItemsTheSame(firstItem: CuratingContents, secondItem: CuratingContents) =
+            firstItem.id == secondItem.id
 
-        override fun areContentsTheSame(firstItem: CuratingContents, secondItem: CuratingContents) = firstItem.equals(secondItem)
+        override fun areContentsTheSame(firstItem: CuratingContents, secondItem: CuratingContents) =
+            firstItem.equals(secondItem)
     }
 
 

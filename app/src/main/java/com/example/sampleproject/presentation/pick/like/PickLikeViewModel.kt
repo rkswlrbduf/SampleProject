@@ -25,10 +25,15 @@ import javax.inject.Inject
 
 class PickLikeViewModel @Inject constructor(var pickRepository: PickRepositoryImpl) : ViewModel() {
 
-    var likeLiveData: LiveData<PagedList<CuratingContents>>
+    var likeLiveData = MutableLiveData<RealmResults<CuratingContents>>()
+    private var realmResultList: RealmResults<CuratingContents>? = null
 
     init {
-        likeLiveData = pickRepository.getLikedContents()
+        realmResultList = pickRepository.getLikedContents()
+        likeLiveData.value = realmResultList
+        realmResultList?.addChangeListener { t ->
+            likeLiveData.value = t
+        }
     }
 
 }

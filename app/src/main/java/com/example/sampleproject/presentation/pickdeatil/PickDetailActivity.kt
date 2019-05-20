@@ -10,6 +10,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import com.bumptech.glide.Glide
 import com.example.sampleproject.R
+import com.example.sampleproject.base.BaseApp
 import com.example.sampleproject.component.DaggerPickComponent
 import com.example.sampleproject.domain.CuratingContents
 import com.example.sampleproject.domain.PickChatMessage
@@ -48,7 +49,7 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pick_detail)
 
-        DaggerPickComponent.builder().build().inject(this)
+        DaggerPickComponent.builder().appComponent(BaseApp.component).build().inject(this)
 
         contents_id = intent.getIntExtra("contents_id", -1)
 

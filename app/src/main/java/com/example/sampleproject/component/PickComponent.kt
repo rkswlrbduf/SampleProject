@@ -1,12 +1,13 @@
 package com.example.sampleproject.component
 
+import com.example.sampleproject.base.BaseApp
 import com.example.sampleproject.presentation.pick.PickActivity
 import com.example.sampleproject.presentation.pick.PickLikeFragment
 import com.example.sampleproject.presentation.pick.PickListFragment
 import com.example.sampleproject.presentation.pickdeatil.PickDetailActivity
 import dagger.Component
 
-@Component(modules = arrayOf(BaseModule::class,PickLikeModule::class,PickListModule::class))
+@Component(modules = arrayOf(BaseModule::class, PickLikeModule::class, PickListModule::class), dependencies = arrayOf(AppComponent::class))
 interface PickComponent {
     fun inject(activity: PickDetailActivity): PickDetailActivity
     fun inject(activity: PickActivity): PickActivity
