@@ -1,18 +1,16 @@
 package com.example.sampleproject.component
 
 import com.example.sampleproject.data.repositoryImpl.PickRepositoryImpl
-import com.example.sampleproject.presentation.pickdeatil.PickListPresenter
-import com.google.gson.Gson
+import com.example.sampleproject.presentation.pick.list.PickListViewModelFactory
 import dagger.Module
 import dagger.Provides
-import io.realm.Realm
 
 @Module
 class PickListModule {
 
     @Provides
-    fun providePresenter(pickRepository: PickRepositoryImpl): PickListPresenter {
-        return PickListPresenter(pickRepository)
+    fun provideFactory(pickRepository: PickRepositoryImpl): PickListViewModelFactory {
+        return PickListViewModelFactory(pickRepository)
     }
 
 }

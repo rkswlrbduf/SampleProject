@@ -6,7 +6,7 @@ import com.example.sampleproject.presentation.pick.PickListFragment
 import com.example.sampleproject.presentation.pickdeatil.PickDetailActivity
 import dagger.Component
 
-@Component(modules = arrayOf(BaseModule::class,PickLikeModule::class,PickLikeModule::class))
+@Component(modules = arrayOf(BaseModule::class,PickLikeModule::class,PickListModule::class))
 interface PickComponent {
     fun inject(activity: PickDetailActivity): PickDetailActivity
     fun inject(activity: PickActivity): PickActivity

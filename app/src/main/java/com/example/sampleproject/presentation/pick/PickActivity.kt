@@ -53,18 +53,6 @@ class PickActivity : AppCompatActivity() {
             false
         }
 
-        realm.where(CuratingContents::class.java).equalTo(
-            "isLiked", 1.toInt()
-        ).findAll().addChangeListener { t ->
-            Log.d("TAG", "TAFWDWADWDAWDWADWDWD")
-        }
-
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        realm.removeAllChangeListeners()
-        realm.close()
-
-    }
 }
