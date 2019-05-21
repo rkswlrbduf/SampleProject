@@ -1,9 +1,11 @@
 package com.example.sampleproject.presentation.pickdeatil
 
 import android.util.Log
-import com.example.sampleproject.domain.CuratingContents
+import com.example.sampleproject.domain.CuratingContent
 import com.example.sampleproject.data.repositoryImpl.PickRepositoryImpl
+import com.example.sampleproject.presentation.pick.fragment.like.ContentsLikeDataSource
 import io.reactivex.disposables.Disposable
+import io.realm.Realm
 import javax.inject.Inject
 
 class PickDetailPresenter @Inject constructor(
@@ -13,8 +15,8 @@ class PickDetailPresenter @Inject constructor(
     private var view: PickDetailContact.View? = null
     var contentsDisposable: Disposable? = null
     var relatedDisposable: Disposable? = null
-    private lateinit var contents: CuratingContents
-    private lateinit var relatedContents: ArrayList<CuratingContents>
+    private lateinit var contents: CuratingContent
+    private lateinit var relatedContents: ArrayList<CuratingContent>
     var loadFinished = false
 
     override fun attachView(view: PickDetailContact.View) {
@@ -68,7 +70,7 @@ class PickDetailPresenter @Inject constructor(
     }
 
     override fun updateLike(id: Int) {
-        pickRepository.updateLike(id)
+        pickRepository.updateLike(Realm.getDefaultInstance(), id)
     }
 
 }

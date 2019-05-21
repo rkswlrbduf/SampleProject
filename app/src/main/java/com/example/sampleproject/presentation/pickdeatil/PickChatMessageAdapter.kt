@@ -12,16 +12,16 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.sampleproject.R
 import com.example.sampleproject.base.BaseRecyclerViewAdapter
-import com.example.sampleproject.domain.CuratingContents
+import com.example.sampleproject.domain.CuratingContent
 import com.example.sampleproject.domain.PickChatMessage
-import com.example.sampleproject.presentation.pick.PickRecylcerAdapter
+import com.example.sampleproject.presentation.pick.fragment.PickRecylcerAdapter
 import de.hdodenhof.circleimageview.CircleImageView
 
 class PickChatMessageWrapper {
     var viewType: Int = 3
     var message: PickChatMessage? = null
     var middleMessage: String? = null
-    var relateContents: ArrayList<CuratingContents>? = null
+    var relateContents: ArrayList<CuratingContent>? = null
 }
 
 class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageWrapper>?, var callback: PickChatCallback) : BaseRecyclerViewAdapter<PickChatMessageWrapper, RecyclerView.ViewHolder>(mContext, data) {
@@ -93,7 +93,7 @@ class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageW
         super.add(wrapper)
     }
 
-    fun addRelateContentMessage(relateContents: ArrayList<CuratingContents>) {
+    fun addRelateContentMessage(relateContents: ArrayList<CuratingContent>) {
         var wrapper = PickChatMessageWrapper()
         wrapper.viewType =
             RELATE_LIST_VIEWTYPE
@@ -185,7 +185,7 @@ class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageW
         var adapter: PickRecylcerAdapter? = null
         private var recyclerView: RecyclerView = itemView.findViewById(R.id.curating_contents_related_recv)
 
-        fun bind(position: Int, relateContents: ArrayList<CuratingContents>?) {
+        fun bind(position: Int, relateContents: ArrayList<CuratingContent>?) {
             if (relateContents == null) {
                 itemView.visibility = View.GONE
                 return

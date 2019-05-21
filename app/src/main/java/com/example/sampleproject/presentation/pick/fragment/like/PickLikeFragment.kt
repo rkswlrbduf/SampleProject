@@ -1,7 +1,9 @@
 package com.example.sampleproject.presentation.pick
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -14,16 +16,17 @@ import com.example.sampleproject.R
 import com.example.sampleproject.base.BaseApp
 import com.example.sampleproject.component.DaggerPickComponent
 import com.example.sampleproject.databinding.FragmentLikeBinding
-import com.example.sampleproject.presentation.pick.like.PickLikeViewModel
-import com.example.sampleproject.presentation.pick.like.PickLikeViewModelFactory
+import com.example.sampleproject.presentation.pick.fragment.PickRecylcerAdapter
+import com.example.sampleproject.presentation.pick.fragment.PickViewModel
+import com.example.sampleproject.presentation.pick.fragment.PickViewModelFactory
 import com.example.sampleproject.presentation.pickdeatil.PickDetailActivity
 import javax.inject.Inject
 
 class PickLikeFragment : Fragment() {
 
     @Inject
-    lateinit var factory: PickLikeViewModelFactory
-    private lateinit var model: PickLikeViewModel
+    lateinit var factory: PickViewModelFactory
+    private lateinit var model: PickViewModel
     private lateinit var mAdapter: PickRecylcerAdapter
     private lateinit var binding: FragmentLikeBinding
 
@@ -32,16 +35,18 @@ class PickLikeFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate<FragmentLikeBinding>(inflater, R.layout.fragment_like, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_like, container, false)
         return binding.root
     }
 
     fun initUI() {
-        mAdapter = PickRecylcerAdapter(activity as PickActivity, object : PickRecylcerAdapter.OnPickItemClickListener {
-            override fun onPickItemClicked(contentsId: Int) {
-                startActivity(PickDetailActivity.getStartIntent(activity as PickActivity, contentsId))
-            }
-        }).also {
+        mAdapter = PickRecylcerAdapter(
+            activity as PickActivity,
+            object : PickRecylcerAdapter.OnPickItemClickListener {
+                override fun onPickItemClicked(contentsId: Int) {
+                    startActivity(PickDetailActivity.getStartIntent(activity as PickActivity, contentsId))
+                }
+            }).also {
             binding.likedRecyclerView.layoutManager = GridLayoutManager(activity, 2)
             binding.likedRecyclerView.adapter = it
         }
@@ -49,12 +54,12 @@ class PickLikeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        DaggerPickComponent.builder().appComponent(BaseApp.component).build().inject(this)
-        model = ViewModelProviders.of(this, factory).get(PickLikeViewModel::class.java)
+        DaggerPickComponent.builder().baseAppComponent(BaseApp.component).build().inject(this)
+        model = ViewModelProviders.of(this, factory).get(PickViewModel::class.java)
         initUI()
-        model.likeLiveData.observe(this, Observer{
+        model.getPickLike().observe(this, Observer{
             mAdapter.submitList(it)
-            mAdapter.notifyDataSetChanged()
         })
     }
+
 }

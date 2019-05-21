@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,18 +14,19 @@ import com.example.sampleproject.R
 import com.example.sampleproject.base.BaseApp
 import com.example.sampleproject.component.DaggerPickComponent
 import com.example.sampleproject.databinding.FragmentListBinding
-import com.example.sampleproject.presentation.pick.list.PickListViewModel
-import com.example.sampleproject.presentation.pick.list.PickListViewModelFactory
+import com.example.sampleproject.presentation.pick.fragment.PickRecylcerAdapter
+import com.example.sampleproject.presentation.pick.fragment.PickViewModel
+import com.example.sampleproject.presentation.pick.fragment.PickViewModelFactory
 import com.example.sampleproject.presentation.pickdeatil.PickDetailActivity
 import javax.inject.Inject
 
 class PickListFragment : Fragment() {
 
     @Inject
-    lateinit var factory: PickListViewModelFactory
-    private lateinit var mAdapter: PickRecylcerAdapter
+    lateinit var factory: PickViewModelFactory
     private lateinit var binding: FragmentListBinding
-    private lateinit var model: PickListViewModel
+    private lateinit var mAdapter: PickRecylcerAdapter
+    private lateinit var model: PickViewModel
 
     companion object {
         fun newInstance(): PickListFragment = PickListFragment()
@@ -38,11 +38,13 @@ class PickListFragment : Fragment() {
     }
 
     fun initUI() {
-        mAdapter = PickRecylcerAdapter(activity as PickActivity, object : PickRecylcerAdapter.OnPickItemClickListener {
-            override fun onPickItemClicked(contentsId: Int) {
-                startActivity(PickDetailActivity.getStartIntent(activity as PickActivity, contentsId))
-            }
-        }).also {
+        mAdapter = PickRecylcerAdapter(
+            activity as PickActivity,
+            object : PickRecylcerAdapter.OnPickItemClickListener {
+                override fun onPickItemClicked(contentsId: Int) {
+                    startActivity(PickDetailActivity.getStartIntent(activity as PickActivity, contentsId))
+                }
+            }).also {
             binding.recv.layoutManager = GridLayoutManager(activity, 2)
             binding.recv.adapter = it
         }
@@ -50,16 +52,12 @@ class PickListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        DaggerPickComponent.builder().appComponent(BaseApp.component).build().inject(this)
-        model = ViewModelProviders.of(this, factory).get(PickListViewModel::class.java)
+        DaggerPickComponent.builder().baseAppComponent(BaseApp.component).build().inject(this)
+        model = ViewModelProviders.of(this, factory).get(PickViewModel::class.java)
         initUI()
-        model.listLiveData.observe(this , Observer {
-
+        model.getPickList().observe(this, Observer {
             mAdapter.submitList(it)
-            mAdapter.notifyDataSetChanged()
-            Log.d("listLiveData", "${it?.size.toString()} ${mAdapter.itemCount}")
         })
-
     }
 
 }

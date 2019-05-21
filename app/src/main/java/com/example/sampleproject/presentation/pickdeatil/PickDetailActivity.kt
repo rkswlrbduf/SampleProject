@@ -1,32 +1,32 @@
 package com.example.sampleproject.presentation.pickdeatil
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.bumptech.glide.Glide
 import com.example.sampleproject.R
 import com.example.sampleproject.base.BaseApp
 import com.example.sampleproject.component.DaggerPickComponent
-import com.example.sampleproject.domain.CuratingContents
+import com.example.sampleproject.domain.CuratingContent
 import com.example.sampleproject.domain.PickChatMessage
+import com.example.sampleproject.presentation.pick.PickActivity
 import kotlinx.android.synthetic.main.activity_pick_detail.*
-import kotlinx.android.synthetic.main.item_curating_contents.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
-                           GestureDetector.OnGestureListener {
+    GestureDetector.OnGestureListener {
 
-    private lateinit var mAdapter: PickChatMessageAdapter
     @Inject
     lateinit var presenter: PickDetailPresenter
+    private lateinit var mAdapter: PickChatMessageAdapter
 
     var contents_id = -1
     private val gestureDetector: GestureDetector by lazy { GestureDetector(this, this) }
@@ -38,7 +38,7 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
         fun getStartIntent(context: Context, contentsId: Int): Intent {
             val intent = Intent(context, PickDetailActivity::class.java)
             intent.putExtra(REQUEST_CONTENTS_ID, contentsId)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             return intent
         }
 
@@ -49,7 +49,7 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pick_detail)
 
-        DaggerPickComponent.builder().appComponent(BaseApp.component).build().inject(this)
+        DaggerPickComponent.builder().baseAppComponent(BaseApp.component).build().inject(this)
 
         contents_id = intent.getIntExtra("contents_id", -1)
 
@@ -101,7 +101,7 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
         }
     }
 
-    override fun runLoadData(contents: CuratingContents) {
+    override fun runLoadData(contents: CuratingContent) {
         curating_contents_detail_title.text = contents.title
         Glide.with(this).load(contents.profileImageKey)
             .into(curating_contents_detail_author_profile_image)
@@ -118,7 +118,7 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
         mAdapter.addMiddleMessage(message)
     }
 
-    override fun runRelatedMessage(lists: ArrayList<CuratingContents>) {
+    override fun runRelatedMessage(lists: ArrayList<CuratingContent>) {
         mAdapter.addRelateContentMessage(lists)
     }
 

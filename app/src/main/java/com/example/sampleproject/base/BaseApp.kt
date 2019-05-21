@@ -9,13 +9,13 @@ class BaseApp : Application() {
 
     companion object {
         lateinit var context: Context
-        lateinit var component: AppComponent
+        lateinit var component: BaseAppComponent
     }
 
     override fun onCreate() {
         super.onCreate()
 
-        component = DaggerAppComponent.builder().appModule(AppModule(this)).build()
+        component = DaggerBaseAppComponent.builder().baseAppModule(BaseAppModule(this)).build()
         component.inject(this)
 
         context = this

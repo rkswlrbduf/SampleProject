@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="PickListViewModel"
-            type="com.example.sampleproject.presentation.pick.list.PickListViewModel" />
+            name="PickViewModel"
+            type="com.example.sampleproject.presentation.pick.fragment.PickViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="PickLikeViewModel"
-            type="com.example.sampleproject.presentation.pick.like.PickLikeViewModel" />
+            name="PickViewModel"
+            type="com.example.sampleproject.presentation.pick.fragment.PickViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

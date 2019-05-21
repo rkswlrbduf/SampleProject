@@ -3,10 +3,14 @@ package com.example.sampleproject.domain
 import com.google.gson.annotations.SerializedName
 import io.realm.RealmList
 import io.realm.RealmObject
+import io.realm.RealmResults
 import io.realm.annotations.PrimaryKey
 import java.util.*
+import kotlin.collections.ArrayList
 
-open class CuratingContents(
+data class PagedCuratingContents(var contents: List<CuratingContent>, var hasMore: Boolean = false)
+
+open class CuratingContent(
     @PrimaryKey
     var id: Int = 0,
     var title: String = "",
@@ -21,7 +25,6 @@ open class CuratingContents(
     @SerializedName("profile_image_key") var profileImageKey: String? = null,
     var messages: RealmList<PickChatMessage> = RealmList()
 ): RealmObject()
-
 
 open class PickChatMessage(
     var message: String? = null,
