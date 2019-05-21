@@ -14,7 +14,7 @@ import com.example.sampleproject.R
 import com.example.sampleproject.base.BaseRecyclerViewAdapter
 import com.example.sampleproject.domain.CuratingContent
 import com.example.sampleproject.domain.PickChatMessage
-import com.example.sampleproject.presentation.pick.fragment.PickRecylcerAdapter
+import com.example.sampleproject.presentation.pick.fragment.list.PickListRecylcerAdapter
 import de.hdodenhof.circleimageview.CircleImageView
 
 class PickChatMessageWrapper {
@@ -26,7 +26,7 @@ class PickChatMessageWrapper {
 
 class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageWrapper>?, var callback: PickChatCallback) : BaseRecyclerViewAdapter<PickChatMessageWrapper, RecyclerView.ViewHolder>(mContext, data) {
 
-    interface PickChatCallback : PickRecylcerAdapter.OnPickItemClickListener
+    interface PickChatCallback : PickListRecylcerAdapter.OnPickItemClickListener
 
     companion object {
         val LEFT_VIEWTYPE = 1
@@ -182,7 +182,7 @@ class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageW
     }
 
     inner class PickChatRelateContentViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_pick_chat_relate, parent, false)) {
-        var adapter: PickRecylcerAdapter? = null
+        var adapter: PickListRecylcerAdapter? = null
         private var recyclerView: RecyclerView = itemView.findViewById(R.id.curating_contents_related_recv)
 
         fun bind(position: Int, relateContents: ArrayList<CuratingContent>?) {
@@ -192,7 +192,7 @@ class PickChatMessageAdapter(mContext: Context, data: ArrayList<PickChatMessageW
             } else {
                 itemView.visibility = View.VISIBLE
                 if (adapter == null) {
-                    adapter = PickRecylcerAdapter(
+                    adapter = PickListRecylcerAdapter(
                         itemView.context,
                         callback
                     )

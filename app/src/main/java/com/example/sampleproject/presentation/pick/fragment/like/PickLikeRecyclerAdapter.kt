@@ -1,6 +1,5 @@
-package com.example.sampleproject.presentation.pick.fragment
+package com.example.sampleproject.presentation.pick.fragment.like
 
-import android.arch.paging.PagedListAdapter
 import android.content.Context
 import android.support.v4.view.AsyncLayoutInflater
 import android.support.v7.recyclerview.extensions.ListAdapter
@@ -11,14 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.sampleproject.R
 import com.example.sampleproject.domain.CuratingContent
+import com.example.sampleproject.presentation.pick.fragment.list.PickListRecylcerAdapter
 import kotlinx.android.synthetic.main.item_curating_contents.view.*
 import java.util.*
 
-class PickRecylcerAdapter(var context: Context, val listener: OnPickItemClickListener?) :
-    PagedListAdapter<CuratingContent, PickRecylcerAdapter.PickViewHolder>(
+class PickLikeRecylcerAdapter(var context: Context, val listener: PickListRecylcerAdapter.OnPickItemClickListener?) :
+    ListAdapter<CuratingContent, PickLikeRecylcerAdapter.PickViewHolder>(
         MyDiffCallback()
     ) {
 
@@ -37,10 +36,6 @@ class PickRecylcerAdapter(var context: Context, val listener: OnPickItemClickLis
         }
     }
 
-    interface OnPickItemClickListener {
-        fun onPickItemClicked(contentsId: Int)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PickViewHolder {
         val view = if (cachedViews.isEmpty()) {
             LayoutInflater.from(context).inflate(R.layout.item_curating_contents, parent, false)
@@ -56,7 +51,6 @@ class PickRecylcerAdapter(var context: Context, val listener: OnPickItemClickLis
     }
 
     override fun onBindViewHolder(holder: PickViewHolder, position: Int) = holder.bindTo(getItem(position))
-
 
     inner class PickViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

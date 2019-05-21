@@ -2,8 +2,6 @@ package com.example.sampleproject.component
 
 import com.example.sampleproject.data.repositoryImpl.PickRepositoryImpl
 import com.example.sampleproject.presentation.pick.fragment.PickViewModelFactory
-import com.example.sampleproject.presentation.pick.fragment.like.ContentsLikeDataSource
-import com.example.sampleproject.presentation.pick.fragment.like.ContentsLikeDataSourceFactory
 import com.example.sampleproject.presentation.pick.fragment.list.ContentsListDataSource
 import com.example.sampleproject.presentation.pick.fragment.list.ContentsListDataSourceFactory
 import com.google.gson.Gson
@@ -25,13 +23,16 @@ class PickModule {
     }
 
     @Provides
-    fun provideRepo(gson: Gson): PickRepositoryImpl {
-        return PickRepositoryImpl(gson)
+    fun provideRepo(realm: Realm, gson: Gson): PickRepositoryImpl {
+        return PickRepositoryImpl(realm, gson)
     }
 
     @Provides
-    fun provideFactory(contentsListDataSourceFactory: ContentsListDataSourceFactory, contentsLikeDataSourceFactory: ContentsLikeDataSourceFactory): PickViewModelFactory {
-        return PickViewModelFactory(contentsListDataSourceFactory, contentsLikeDataSourceFactory)
+    fun provideFactory(
+        pickRepositoryImpl: PickRepositoryImpl,
+        contentsListDataSourceFactory: ContentsListDataSourceFactory
+    ): PickViewModelFactory {
+        return PickViewModelFactory(pickRepositoryImpl, contentsListDataSourceFactory)
     }
 
     @Provides
@@ -40,19 +41,8 @@ class PickModule {
     }
 
     @Provides
-    fun provideListDataSource(pickRepositoryImpl: PickRepositoryImpl) : ContentsListDataSource {
+    fun provideListDataSource(pickRepositoryImpl: PickRepositoryImpl): ContentsListDataSource {
         return ContentsListDataSource(pickRepositoryImpl)
     }
-
-    @Provides
-    fun provideLikeDataSourceFactory(contentsLikeDataSource: ContentsLikeDataSource): ContentsLikeDataSourceFactory {
-        return ContentsLikeDataSourceFactory(contentsLikeDataSource)
-    }
-
-    @Provides
-    fun provideLikeDataSource(pickRepositoryImpl: PickRepositoryImpl) : ContentsLikeDataSource {
-        return ContentsLikeDataSource(pickRepositoryImpl)
-    }
-
 
 }

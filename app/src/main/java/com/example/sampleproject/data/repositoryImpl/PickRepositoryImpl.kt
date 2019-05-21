@@ -13,8 +13,9 @@ import io.reactivex.*
 import io.realm.Realm
 import com.example.sampleproject.base.BaseApp
 import com.example.sampleproject.domain.PagedCuratingContents
+import io.realm.RealmResults
 
-class PickRepositoryImpl @Inject constructor(var gson: Gson) : PickRepository {
+class PickRepositoryImpl @Inject constructor(var realm: Realm, var gson: Gson) : PickRepository {
 
     override fun getContents(pageSize: Int, pageIndex: Int, realm: Realm): PagedCuratingContents {
         var list =
@@ -41,19 +42,8 @@ class PickRepositoryImpl @Inject constructor(var gson: Gson) : PickRepository {
         return PagedCuratingContents(list, list.size == pageSize)
     }
 
-    override fun getLikedContents(pageSize: Int, pageIndex: Int, realm: Realm): PagedCuratingContents {
-        var list = realm.copyFromRealm(realm.where(CuratingContent::class.java).equalTo("isLiked", 1.toInt()).findAll())
-        var filteredList = ArrayList<CuratingContent>()
-        if(list.size < pageSize) {
-            for (i in (pageSize * (pageIndex - 1)).until(list.size)) {
-                filteredList.add(list[i])
-            }
-        } else {
-            for (i in (pageSize * (pageIndex - 1)).until(pageSize * pageIndex - 1)) {
-                filteredList.add(list[i])
-            }
-        }
-        return PagedCuratingContents(filteredList, filteredList.size == pageSize)
+    override fun getLikedContents(): RealmResults<CuratingContent> {
+        return realm.where(CuratingContent::class.java).equalTo("isLiked", 1.toInt()).findAll()
     }
 
     override fun getDetailContents(): Single<CuratingContent> {

@@ -3,7 +3,6 @@ package com.example.sampleproject.presentation.pickdeatil
 import android.util.Log
 import com.example.sampleproject.domain.CuratingContent
 import com.example.sampleproject.data.repositoryImpl.PickRepositoryImpl
-import com.example.sampleproject.presentation.pick.fragment.like.ContentsLikeDataSource
 import io.reactivex.disposables.Disposable
 import io.realm.Realm
 import javax.inject.Inject

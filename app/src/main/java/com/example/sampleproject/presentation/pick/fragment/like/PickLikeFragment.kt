@@ -1,14 +1,11 @@
 package com.example.sampleproject.presentation.pick
 
-import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +13,10 @@ import com.example.sampleproject.R
 import com.example.sampleproject.base.BaseApp
 import com.example.sampleproject.component.DaggerPickComponent
 import com.example.sampleproject.databinding.FragmentLikeBinding
-import com.example.sampleproject.presentation.pick.fragment.PickRecylcerAdapter
 import com.example.sampleproject.presentation.pick.fragment.PickViewModel
 import com.example.sampleproject.presentation.pick.fragment.PickViewModelFactory
+import com.example.sampleproject.presentation.pick.fragment.like.PickLikeRecylcerAdapter
+import com.example.sampleproject.presentation.pick.fragment.list.PickListRecylcerAdapter
 import com.example.sampleproject.presentation.pickdeatil.PickDetailActivity
 import javax.inject.Inject
 
@@ -26,8 +24,9 @@ class PickLikeFragment : Fragment() {
 
     @Inject
     lateinit var factory: PickViewModelFactory
+
     private lateinit var model: PickViewModel
-    private lateinit var mAdapter: PickRecylcerAdapter
+    private lateinit var mAdapter: PickLikeRecylcerAdapter
     private lateinit var binding: FragmentLikeBinding
 
     companion object {
@@ -40,9 +39,10 @@ class PickLikeFragment : Fragment() {
     }
 
     fun initUI() {
-        mAdapter = PickRecylcerAdapter(
+        mAdapter = PickLikeRecylcerAdapter(
             activity as PickActivity,
-            object : PickRecylcerAdapter.OnPickItemClickListener {
+            object :
+                PickListRecylcerAdapter.OnPickItemClickListener {
                 override fun onPickItemClicked(contentsId: Int) {
                     startActivity(PickDetailActivity.getStartIntent(activity as PickActivity, contentsId))
                 }
@@ -57,9 +57,11 @@ class PickLikeFragment : Fragment() {
         DaggerPickComponent.builder().baseAppComponent(BaseApp.component).build().inject(this)
         model = ViewModelProviders.of(this, factory).get(PickViewModel::class.java)
         initUI()
-        model.getPickLike().observe(this, Observer{
+        model.likeLiveData.observe(this, Observer{
             mAdapter.submitList(it)
+            mAdapter.notifyDataSetChanged()
         })
+        model.getPickLike()
     }
 
 }
