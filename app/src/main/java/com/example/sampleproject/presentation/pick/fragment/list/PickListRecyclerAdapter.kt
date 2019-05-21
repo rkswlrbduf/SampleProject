@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.example.sampleproject.R
@@ -26,6 +27,7 @@ class PickListRecylcerAdapter(var context: Context, val listener: OnPickItemClic
 
     private val asyncLayoutInflater = AsyncLayoutInflater(context)
     private val cachedViews = Stack<View>()
+    private var lastPosition = -1
 
     init {
         for (i in 0..NUM_CACHED_VIEWS) {
@@ -53,8 +55,13 @@ class PickListRecylcerAdapter(var context: Context, val listener: OnPickItemClic
         return PickViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: PickViewHolder, position: Int) = holder.bindTo(getItem(position))
-
+    override fun onBindViewHolder(holder: PickViewHolder, position: Int) {
+        holder.bindTo(getItem(position))
+        if(position > lastPosition) {
+            holder.itemView.animation = AnimationUtils.loadAnimation(context, R.anim.abc_slide_in_bottom)
+            lastPosition = position
+        }
+    }
 
     inner class PickViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

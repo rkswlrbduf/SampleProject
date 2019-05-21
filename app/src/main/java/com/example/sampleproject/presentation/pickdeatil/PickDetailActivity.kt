@@ -6,6 +6,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.bumptech.glide.Glide
@@ -38,7 +39,7 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
         fun getStartIntent(context: Context, contentsId: Int): Intent {
             val intent = Intent(context, PickDetailActivity::class.java)
             intent.putExtra(REQUEST_CONTENTS_ID, contentsId)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             return intent
         }
 
@@ -48,13 +49,14 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pick_detail)
+        contents_id = intent.getIntExtra("contents_id", -1)
 
         DaggerPickComponent.builder().baseAppComponent(BaseApp.component).build().inject(this)
 
-        contents_id = intent.getIntExtra("contents_id", -1)
+
 
         presenter.attachView(this)
-        presenter.loadData()
+
 
     }
 
@@ -81,6 +83,7 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
         curating_contents_detail_like_count_image.setOnClickListener {
             presenter.toggleLikeBtn()
         }
+        presenter.loadData()
 
     }
 
@@ -103,6 +106,7 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
 
     override fun runLoadData(contents: CuratingContent) {
         curating_contents_detail_title.text = contents.title
+        Log.d("TAG", "${curating_contents_detail_title.text}")
         Glide.with(this).load(contents.profileImageKey)
             .into(curating_contents_detail_author_profile_image)
         curating_contents_detail_author_nickname.text = contents.teacherNickName

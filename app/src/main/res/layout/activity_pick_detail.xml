@@ -22,11 +22,12 @@
     <TextView
         android:id="@+id/curating_contents_detail_title"
         style="@style/TextTheme_Medium_19"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="19dp"
         android:layout_marginTop="55dp"
         android:gravity="center_vertical"
+        android:visibility="visible"
         android:lines="1"
         android:textSize="24dp"
         app:layout_constraintStart_toStartOf="parent"
