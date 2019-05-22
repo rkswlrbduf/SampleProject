@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.animation.ScaleAnimation
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.example.sampleproject.R
@@ -57,10 +58,15 @@ class PickListRecylcerAdapter(var context: Context, val listener: OnPickItemClic
 
     override fun onBindViewHolder(holder: PickViewHolder, position: Int) {
         holder.bindTo(getItem(position))
+        var animation = ScaleAnimation(0.7f, 1f, 0.7f, 1f,100f, 0.5f)
         if(position > lastPosition) {
-            holder.itemView.animation = AnimationUtils.loadAnimation(context, R.anim.abc_slide_in_bottom)
+            animation.duration = 400
+            holder.itemView.animation = animation
             lastPosition = position
+        } else {
+            holder.itemView.animation = null
         }
+
     }
 
     inner class PickViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -53,10 +53,8 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
 
         DaggerPickComponent.builder().baseAppComponent(BaseApp.component).build().inject(this)
 
-
-
         presenter.attachView(this)
-
+        presenter.loadData()
 
     }
 
@@ -83,7 +81,6 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
         curating_contents_detail_like_count_image.setOnClickListener {
             presenter.toggleLikeBtn()
         }
-        presenter.loadData()
 
     }
 
@@ -112,6 +109,7 @@ class PickDetailActivity : AppCompatActivity(), PickDetailContact.View,
         curating_contents_detail_author_nickname.text = contents.teacherNickName
         curating_contents_detail_created_at.text = getStringYMD(contents.createdAt)
         mAdapter.addUserMessage(contents.messages[0]!!)
+
     }
 
     override fun runAddUserMessage(message: PickChatMessage) {

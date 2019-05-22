@@ -8,11 +8,11 @@
     android:orientation="vertical"
     android:padding="5dp">
 
-<!--    <TextView-->
-<!--        android:id="@+id/curating_contents_id"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:visibility="gone" />-->
+    <TextView
+        android:id="@+id/curating_contents_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -126,14 +126,6 @@
                         android:lines="1"
                         android:text="1234" />
 
-                    <TextView
-                        android:id="@+id/curating_contents_id"
-                        style="@style/TextTheme_Regular_12"
-                        android:layout_marginLeft="5dp"
-                        android:textColor="#FF0000"
-                        android:text="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
 
